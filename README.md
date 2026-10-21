@@ -1,5 +1,31 @@
 # Divisão de Atribuições — Grupo 2: Produtos e Validade
 
+## 🚀 Início Rápido (Instalação)
+
+Antes de codar, instale **apenas as dependências** do projeto e gere os arquivos de configuração (`.env`):
+
+```bash
+node scripts/instalar_dependencias.js
+```
+
+Esse comando:
+1. Cria o `package.json` (se não existir) com as dependências: `express`, `pg`, `dotenv`, `jsonwebtoken` e `bcrypt`;
+2. Baixa tudo para a pasta `node_modules`;
+3. Cria o `.env` a partir do modelo `.env.example` (**sem sobrescrever** um `.env` já existente).
+
+Depois da instalação:
+
+```bash
+# 1. Edite o .env com a senha do banco e o JWT_SECRET
+# 2. Rode o schema.sql no seu PostgreSQL
+# 3. Inicie a API
+npm start
+```
+
+> **Dica para novos integrantes:** se o `.env` não existir, copie o modelo com `cp .env.example .env` e ajuste os valores.
+
+---
+
 ## 1. Contexto do Módulo
 O **Grupo 2** é responsável pela gestão de produtos do almoxarifado corporativo. A divisão abaixo é baseada no modelo **CRUD de ponta a ponta**, onde cada um dos 4 integrantes assume um fluxo completo (Repository, Controller e Routes), garantindo aprendizado igualitário em todas as camadas da aplicação (banco de dados, regras HTTP e controle de acesso RBAC).
 

@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
+// Raiz do projeto (pasta pai desta pasta "scripts")
+const RAIZ = path.join(__dirname, '..');
+
 const files = {
     '.env': `DB_USER=postgres
 DB_HOST=localhost
@@ -315,7 +318,7 @@ app.listen(PORT, () => {
 };
 
 Object.entries(files).forEach(([filePath, content]) => {
-    const fullPath = path.join(__dirname, filePath);
+    const fullPath = path.join(RAIZ, filePath);
     const dir = path.dirname(fullPath);
     
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -325,4 +328,4 @@ Object.entries(files).forEach(([filePath, content]) => {
 });
 
 console.log('\n📦 Esqueleto do Almoxarifado gerado com sucesso!');
-console.log('Rode: npm install express pg dotenv bcrypt jsonwebtoken');
+console.log('Rode: node scripts/instalar_dependencias.js');
