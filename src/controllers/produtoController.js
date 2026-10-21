@@ -11,9 +11,6 @@ const criarProduto = async (req, res) => {
 const listarProdutos = async (req, res) => {
     try{
         const produtos = await produtoRepository.listarTodos();
-
-        new Date(produtos.data_validade).toLocaleDateString('pt-br')
-        
         return res.status(200).json(produtos);
     }catch (error) {
         console.error(error.message);
@@ -25,23 +22,21 @@ const listarProdutos = async (req, res) => {
 
 const listarProdutosPorID = async (req, res) => {
     try{
-        const id = req.params.id
+        const id = req.params.id;
 
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({
                 mensagem: "Insira um id valido"
-            })
-        }
+            });
+        };
 
         const produtos = await produtoRepository.buscarPorId(id);
 
         if (!produtos) {
             res.status(404).json({
                 mensagem: "Produto não encontrado"
-            })
-        }
-
-        new Date(produtos[0].data_validade).toLocaleDateString('pt-br')
+            });
+        };
 
         return res.status(200).json(produtos)
     }catch (error) {
