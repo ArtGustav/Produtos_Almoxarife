@@ -12,14 +12,18 @@ const criar = async (nome, descricao, quantidade_estoque, data_validade) => {
 
 // Lista todos os produtos
 const listarTodos = async () => {
-    // TODO: Implementar SQL SELECT * FROM produtos ORDER BY nome
-    throw new Error('produtoRepository.listarTodos() ainda não implementado.');
+    const sql = 'SELECT * FROM produtos ORDER BY id ASC'
+    const resultado = await pool.query(sql);
+
+    return resultado.rows;
 };
 
 // Busca produto por ID (Usado na validação de validade e estoque pelo Grupo 3)
 const buscarPorId = async (id) => {
-    // TODO: Implementar SQL SELECT * FROM produtos WHERE id = $1
-    throw new Error('produtoRepository.buscarPorId() ainda não implementado.');
+    const sql = 'SELECT * FROM produtos WHERE id = $1'
+    const resultado = await pool.query(sql, [id]);
+
+    return resultado.rows[0];
 };
 
 // Atualiza a quantidade do estoque após a baixa/retirada

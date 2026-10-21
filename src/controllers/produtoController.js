@@ -9,13 +9,52 @@ const criarProduto = async (req, res) => {
 };
 
 const listarProdutos = async (req, res) => {
-    // TODO: Listar produtos do estoque
-    res.status(501).json({ mensagem: 'produtoController.listarProdutos ainda não implementado.' });
+    try{
+        const produtos = await produtoRepository.listarTodos();
+
+        new Date(produtos.data_validade).toLocaleDateString('pt-br')
+        
+        return res.status(200).json(produtos);
+    }catch (error) {
+        console.error(error.message);
+        return res.status(500).json({
+            mensagem:"Erro interno"
+        });
+    };
 };
+
+const listarProdutosPorID = async (req, res) => {
+    try{
+        const id = req.params.id
+
+        if (isNaN(id) || id <= 0) {
+            return res.status(400).json({
+                mensagem: "Insira um id valido"
+            })
+        }
+
+        const produtos = await produtoRepository.buscarPorId(id);
+
+        if (!produtos) {
+            res.status(404).json({
+                mensagem: "Produto não encontrado"
+            })
+        }
+
+        new Date(produtos[0].data_validade).toLocaleDateString('pt-br')
+
+        return res.status(200).json(produtos)
+    }catch (error) {
+        console.error(error.message);
+        return res.status(500).json({
+            mensagem:"Erro interno"
+        });
+    };
+}
 
 const atualizarProduto = async (req, res) => {
     // TODO: Atualizar dados do produto
     res.status(501).json({ mensagem: 'produtoController.atualizarProduto ainda não implementado.' });
 };
 
-module.exports = { criarProduto, listarProdutos, atualizarProduto };
+module.exports = { criarProduto, listarProdutos, atualizarProduto, listarProdutosPorID };
