@@ -1,7 +1,7 @@
 const express = require('express');
-const usuarioRoutes = require('./src/routes/usuarioRoutes');
-const produtoRoutes = require('./src/routes/produtoRoutes');
-const solicitacaoRoutes = require('./src/routes/solicitacaoRoutes');
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const produtoRoutes = require('./routes/produtoRoutes');
+const solicitacaoRoutes = require('./routes/solicitacaoRoutes');
 
 const app = express();
 app.use(express.json());
