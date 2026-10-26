@@ -34,9 +34,12 @@ const buscarPorId = async (id) => {
 };
 
 // Atualiza a quantidade do estoque após a baixa/retirada
-const atualizarEstoque = async (id, novaQuantidade) => {
-    // TODO: Implementar SQL UPDATE produtos SET quantidade_estoque = $1 WHERE id = $2 RETURNING *
-    throw new Error('produtoRepository.atualizarEstoque() ainda não implementado.');
+const atualizar = async (id, nome, descricao, quantidade_estoque, data_validade) => {
+    const sql = 'UPDATE produtos SET nome = $1, descricao = $2, quantidade_estoque = $3, data_validade = $4 WHERE id = $5 RETURNING *';
+    const valores = [nome, descricao, quantidade_estoque, data_validade, id];
+    const resultado = await pool.query(sql, valores);
+
+    return resultado.rows[0];
 };
 
 // Remove pelo ID. RETURNING * retorna a linha removida ou nenhuma linha se inexistente.
@@ -46,4 +49,4 @@ const deletar = async (id) => {
 };
 
 // Exportações nomeadas preservam os handlers compartilhados pelos integrantes.
-module.exports = { criar, listarTodos, buscarPorId, atualizarEstoque, deletar };
+module.exports = { criar, listarTodos, buscarPorId, atualizar, deletar };
