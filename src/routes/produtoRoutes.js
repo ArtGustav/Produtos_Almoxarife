@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const produtoController = require('../controllers/produtoController');
-// const authMiddleware = require('../middlewares/authMiddleware');
-// const roleMiddleware = require('../middlewares/roleMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
+const roleMiddleware = require('../middlewares/roleMiddleware');
 
 router.get('/', authMiddleware, produtoController.listarProdutos);
 router.get('/:id', authMiddleware, produtoController.listarProdutosPorID); 
