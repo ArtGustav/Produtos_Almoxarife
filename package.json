@@ -12,5 +12,16 @@
         "dotenv": "^16.4.7",
         "jsonwebtoken": "^9.0.2",
         "bcrypt": "^5.1.1"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ArtGustav/Produtos_Almoxarife.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ArtGustav/Produtos_Almoxarife/issues"
+    },
+    "homepage": "https://github.com/ArtGustav/Produtos_Almoxarife#readme"
 }
