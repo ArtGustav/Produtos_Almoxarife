@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+const pool = require('../config/db'); //ajustando o caminho pool/ conexão
 
 /**
  * GRUPO 2: PRODUTOS
@@ -6,8 +6,15 @@ const pool = require('../config/db');
 
 // Cadastra um novo produto com data de validade
 const criar = async (nome, descricao, quantidade_estoque, data_validade) => {
-    // TODO: Implementar SQL INSERT INTO produtos (nome, descricao, quantidade_estoque, data_validade) ... RETURNING *
-    throw new Error('produtoRepository.criar() ainda não implementado.');
+    const query =`
+    INSERT INTO produtos(nome,descricao,quantidade_estoque, data_validade)
+    VALUES ($1,$2,$3,$4)
+    RETURNING *;
+    `;
+    const values = [nome, descricao, quantidade_estoque, data_validade];
+    const resultado = await pool.query(query,values);
+    return resultado.rows[0];
+
 };
 
 // Lista todos os produtos
