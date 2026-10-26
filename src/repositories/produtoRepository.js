@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+const pool = require('../config/db'); //ajustando o caminho pool/ conexão
 
 /**
  * GRUPO 2: PRODUTOS
@@ -6,8 +6,15 @@ const pool = require('../config/db');
 
 // Cadastra um novo produto com data de validade
 const criar = async (nome, descricao, quantidade_estoque, data_validade) => {
-    // TODO: Implementar SQL INSERT INTO produtos (nome, descricao, quantidade_estoque, data_validade) ... RETURNING *
-    throw new Error('produtoRepository.criar() ainda não implementado.');
+    const query =`
+    INSERT INTO produtos(nome,descricao,quantidade_estoque, data_validade)
+    VALUES ($1,$2,$3,$4)
+    RETURNING *;
+    `;
+    const values = [nome, descricao, quantidade_estoque, data_validade];
+    const resultado = await pool.query(query,values);
+    return resultado.rows[0];
+
 };
 
 // Lista todos os produtos
@@ -32,4 +39,11 @@ const atualizarEstoque = async (id, novaQuantidade) => {
     throw new Error('produtoRepository.atualizarEstoque() ainda não implementado.');
 };
 
-module.exports = { criar, listarTodos, buscarPorId, atualizarEstoque };
+// Remove pelo ID. RETURNING * retorna a linha removida ou nenhuma linha se inexistente.
+const deletar = async (id) => {
+    const resultado = await pool.query('DELETE FROM produtos WHERE id = $1 RETURNING *;', [id]);
+    return resultado.rows[0] || null;
+};
+
+// Exportações nomeadas preservam os handlers compartilhados pelos integrantes.
+module.exports = { criar, listarTodos, buscarPorId, atualizarEstoque, deletar };
