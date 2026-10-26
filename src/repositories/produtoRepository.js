@@ -35,4 +35,11 @@ const atualizarEstoque = async (id, novaQuantidade) => {
     throw new Error('produtoRepository.atualizarEstoque() ainda não implementado.');
 };
 
-module.exports = { criar, listarTodos, buscarPorId, atualizarEstoque };
+// Remove pelo ID. RETURNING * retorna a linha removida ou nenhuma linha se inexistente.
+const deletar = async (id) => {
+    const resultado = await pool.query('DELETE FROM produtos WHERE id = $1 RETURNING *;', [id]);
+    return resultado.rows[0] || null;
+};
+
+// Exportações nomeadas preservam os handlers compartilhados pelos integrantes.
+module.exports = { criar, listarTodos, buscarPorId, atualizarEstoque, deletar };

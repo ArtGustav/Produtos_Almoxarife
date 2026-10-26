@@ -1,13 +1,16 @@
 /**
- * GRUPO 1: MIDDLEWARE DE AUTORIZAÇÃO (RBAC)
+ * Middleware de autorização por cargo (RBAC).
+ * Use roleMiddleware('admin', 'SuperAdmin') ou roleMiddleware(['admin', 'SuperAdmin']).
  */
 const autorizarCargos = (...cargosPermitidos) => {
+    // Achata a lista para manter compatibilidade com os dois formatos de chamada.
+    const cargos = cargosPermitidos.flat();
+
     return (req, res, next) => {
-        // TODO:
-        // 1. Ler req.usuario_cargo
-        // 2. Verificar se cargosPermitidos.includes(req.usuario_cargo)
-        // 3. Chamar next() ou retornar status 403 Forbidden
-        res.status(501).json({ mensagem: 'roleMiddleware ainda não implementado.' });
+        if (!cargos.includes(req.usuario_cargo)) {
+            return res.status(403).json({ mensagem: 'Acesso negado para este cargo.' });
+        }
+        return next();
     };
 };
 
